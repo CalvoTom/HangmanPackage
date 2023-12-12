@@ -21,12 +21,13 @@ const (
 )
 
 type HangManData struct {
-	Word       string // Word composed of '_', ex: H_ll_
-	ToFind     string // Final word chosen by the program at the beginning. It is the word to find
-	Attempts   int    // Number of attempts left
-	IsASCII    bool
-	Police     string
-	LetterFind string
+	Word         string // Word composed of '_', ex: H_ll_
+	ToFind       string // Final word chosen by the program at the beginning. It is the word to find
+	Attempts     int    // Number of attempts left
+	IsASCII      bool
+	Police       string
+	LetterFind   string
+	LettersTried string
 }
 
 func Drawer() {
