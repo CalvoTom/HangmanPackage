@@ -33,7 +33,6 @@ func IsAlpha(str string) bool {
 	return alphanumeric.MatchString(str)
 }
 
-
 func ReplaceAtIndex2(input string, replacement byte, index int) string {
 	return strings.Join([]string{input[:index], string(replacement), input[index+1:]}, "")
 }
@@ -181,4 +180,28 @@ func LoadGame(file string, hangman *HangManData) {
 // Check if mouss is inside a bouton
 func isMouseInsideButton(mouseX, mouseY, buttonX, buttonY int, label string) bool {
 	return mouseX >= buttonX && mouseX < buttonX+len(label) && mouseY == buttonY
+}
+
+func Testeur(input string, file string) bool {
+	// Initialise variable
+	var hangman *HangManData = InitialiseStruc(file)
+
+	if strings.Contains(string(hangman.ToFind), input) {
+		for i, letter := range hangman.ToFind {
+			if string(letter) == input {
+				hangman.Word = ReplaceAtIndex(hangman.Word, letter, i)
+				if !strings.Contains(string(hangman.LettersTried), input) {
+					hangman.LetterFind += input
+					hangman.LettersTried += input
+				}
+			}
+		}
+		return true
+	} else {
+		if !strings.Contains(string(hangman.LettersTried), input) {
+			hangman.Attempts -= 1
+			hangman.LettersTried += input
+		}
+		return false
+	}
 }
