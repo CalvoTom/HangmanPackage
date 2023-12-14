@@ -182,10 +182,7 @@ func isMouseInsideButton(mouseX, mouseY, buttonX, buttonY int, label string) boo
 	return mouseX >= buttonX && mouseX < buttonX+len(label) && mouseY == buttonY
 }
 
-func Testeur(input string, file string) bool {
-	// Initialise variable
-	var hangman *HangManData = InitialiseStruc(file)
-
+func Testeur(input string, hangman *HangManData) bool {
 	if strings.Contains(string(hangman.ToFind), input) {
 		for i, letter := range hangman.ToFind {
 			if string(letter) == input {
