@@ -49,6 +49,7 @@ func InitialiseStruc(filename string) *HangManData {
 	}
 	hangman.LetterFind = HideWord(hangman)
 	hangman.IsASCII = false
+	hangman.Attempts = 10
 
 	return hangman
 }
