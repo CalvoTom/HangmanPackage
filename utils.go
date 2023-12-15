@@ -183,22 +183,54 @@ func isMouseInsideButton(mouseX, mouseY, buttonX, buttonY int, label string) boo
 }
 
 func Testeur(input string, hangman *HangManData) bool {
-	if strings.Contains(string(hangman.ToFind), input) {
-		for i, letter := range hangman.ToFind {
-			if string(letter) == input {
-				hangman.Word = ReplaceAtIndex(hangman.Word, letter, i)
-				if !strings.Contains(string(hangman.LettersTried), input) {
-					hangman.LetterFind += input
-					hangman.LettersTried += input
+	switch {
+	case len(input) <= 1:
+		if strings.Contains(string(hangman.ToFind), input) {
+			for i, letter := range hangman.ToFind {
+				if string(letter) == input {
+					hangman.Word = ReplaceAtIndex(hangman.Word, letter, i)
+					if !strings.Contains(string(hangman.LettersTried), input) {
+						hangman.LetterFind += input
+						hangman.LettersTried += input
+					}
+				}
+			}
+			return true
+		} else {
+			if !strings.Contains(string(hangman.LettersTried), input) {
+				hangman.Attempts -= 1
+				hangman.LettersTried += input
+			}
+			return false
+		}
+
+	case len(input) > 1:
+		returnValue := true
+		for _, ch := range input {
+			if returnValue == false {
+				return false
+			}
+			if strings.Contains(string(hangman.ToFind), string(ch)) {
+				for i, letter := range hangman.ToFind {
+					if string(letter) == string(ch) {
+						hangman.Word = ReplaceAtIndex(hangman.Word, letter, i)
+						if !strings.Contains(string(hangman.LettersTried), string(ch)) {
+							hangman.LetterFind += string(ch)
+							hangman.LettersTried += string(ch)
+						}
+					}
+				}
+			} else {
+				if !strings.Contains(string(hangman.LettersTried), string(ch)) {
+					hangman.Attempts -= 2
+					hangman.LettersTried += string(ch)
+					returnValue = false
 				}
 			}
 		}
-		return true
-	} else {
-		if !strings.Contains(string(hangman.LettersTried), input) {
-			hangman.Attempts -= 1
-			hangman.LettersTried += input
-		}
+
+	default:
 		return false
 	}
+	return false
 }
