@@ -56,7 +56,7 @@ func InitialiseStruc(filename string) *HangManData {
 
 // Chose random word in a file passed in parameter
 func RandomWord(hangman *HangManData, filename string) {
-	randomWordLine := rand.Intn(36-1+1) + 1
+	var arrayWord []string
 
 	file, err := os.Open(filename)
 	if err != nil {
@@ -69,11 +69,10 @@ func RandomWord(hangman *HangManData, filename string) {
 
 	for scanner.Scan() {
 		lineNumber++
-		if lineNumber == randomWordLine {
-			hangman.ToFind = scanner.Text()
-			break
-		}
+		arrayWord = append(arrayWord, scanner.Text())
 	}
+	randomWordIndex := rand.Intn(lineNumber-1+1) + 1
+	hangman.ToFind = arrayWord[randomWordIndex]
 }
 
 // Randomly hiding a word by replacing letter with _
