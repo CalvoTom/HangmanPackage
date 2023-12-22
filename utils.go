@@ -204,7 +204,7 @@ func Testeur(input string, hangman *HangManData) bool {
 			return false
 		}
 
-	case len(input) > 1:
+	case len(input) == len(hangman.ToFind):
 		returnValue := true
 		for _, ch := range input {
 			if returnValue == false {
