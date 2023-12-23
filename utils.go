@@ -71,7 +71,7 @@ func RandomWord(hangman *HangManData, filename string) {
 		lineNumber++
 		arrayWord = append(arrayWord, scanner.Text())
 	}
-	randomWordIndex := rand.Intn(lineNumber-1+1) + 1
+	randomWordIndex := rand.Intn(lineNumber - 1)
 	hangman.ToFind = arrayWord[randomWordIndex]
 }
 
