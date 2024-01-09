@@ -205,32 +205,21 @@ func Testeur(input string, hangman *HangManData) bool {
 		}
 
 	case len(input) == len(hangman.ToFind):
-		returnValue := true
-		for _, ch := range input {
-			if returnValue == false {
-				return false
+		if string(hangman.ToFind) == input {
+			for i, letter := range input {
+				hangman.Word = ReplaceAtIndex(hangman.Word, letter, i)
 			}
-			if strings.Contains(string(hangman.ToFind), string(ch)) {
-				for i, letter := range hangman.ToFind {
-					if string(letter) == string(ch) {
-						hangman.Word = ReplaceAtIndex(hangman.Word, letter, i)
-						if !strings.Contains(string(hangman.LettersTried), string(ch)) {
-							hangman.LetterFind += string(ch)
-							hangman.LettersTried += string(ch)
-						}
-					}
-				}
-			} else {
-				if !strings.Contains(string(hangman.LettersTried), string(ch)) {
-					hangman.Attempts -= 2
-					hangman.LettersTried += string(ch)
-					returnValue = false
-				}
-			}
+			hangman.LetterFind += input
+			hangman.LettersTried += input
+			return true
+		} else {
+			hangman.Attempts -= 2
+			hangman.LettersTried += input
+			return false
 		}
 
 	default:
+		hangman.Attempts -= 2
 		return false
 	}
-	return false
 }
