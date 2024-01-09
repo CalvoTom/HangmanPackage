@@ -212,7 +212,7 @@ func Testeur(input string, hangman *HangManData) bool {
 			hangman.LetterFind += input
 			for _, letter := range input {
 				if !strings.Contains(hangman.LettersTried, string(letter)) {
-					hangman.LettersTried += input
+					hangman.LettersTried += string(letter)
 				}
 			}
 			return true
@@ -220,7 +220,7 @@ func Testeur(input string, hangman *HangManData) bool {
 			hangman.Attempts -= 2
 			for _, letter := range input {
 				if !strings.Contains(hangman.LettersTried, string(letter)) {
-					hangman.LettersTried += input
+					hangman.LettersTried += string(letter)
 				}
 			}
 			return false
@@ -230,7 +230,7 @@ func Testeur(input string, hangman *HangManData) bool {
 		hangman.Attempts -= 2
 		for _, letter := range input {
 			if !strings.Contains(hangman.LettersTried, string(letter)) {
-				hangman.LettersTried += input
+				hangman.LettersTried += string(letter)
 			}
 		}
 		return false
