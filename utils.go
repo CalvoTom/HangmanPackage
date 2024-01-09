@@ -210,16 +210,29 @@ func Testeur(input string, hangman *HangManData) bool {
 				hangman.Word = ReplaceAtIndex(hangman.Word, letter, i)
 			}
 			hangman.LetterFind += input
-			hangman.LettersTried += input
+			for _, letter := range input {
+				if !strings.Contains(hangman.LettersTried, string(letter)) {
+					hangman.LettersTried += input
+				}
+			}
 			return true
 		} else {
 			hangman.Attempts -= 2
-			hangman.LettersTried += input
+			for _, letter := range input {
+				if !strings.Contains(hangman.LettersTried, string(letter)) {
+					hangman.LettersTried += input
+				}
+			}
 			return false
 		}
 
 	default:
 		hangman.Attempts -= 2
+		for _, letter := range input {
+			if !strings.Contains(hangman.LettersTried, string(letter)) {
+				hangman.LettersTried += input
+			}
+		}
 		return false
 	}
 }
